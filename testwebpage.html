@@ -1,0 +1,44 @@
+<html>
+
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	</head>
+
+	<body>
+
+		<h1>Provoking And Racist Comment Detection</h1>
+
+		COMMENT: <input id = "comment" /> <br/>
+		<button onclick="callServer()" id = "submitButton"> SUBMIT </button>
+
+		<br/>
+		COMMENT_TYPE: <input id = "COMMENT_TYPE" />
+
+
+		<script>
+
+		function callServer(){
+			
+			var settings = {
+			  	"url": "http://172.50.122.58:8080/predict",
+			  	"method": "POST",
+			  	"timeout": 0,
+			  	"headers": {"Content-Type": "application/json"},
+	
+  				"data": JSON.stringify({
+    					"comment": document.getElementById("comment").value
+  				}),
+			};
+
+			$.ajax(settings).done(function (response) {
+  				console.log(response);
+
+				document.getElementById("COMMENT_TYPE").value = response['COMMENT_TYPE']
+			});
+		}
+
+		</script>
+
+	</body>
+
+</html>
